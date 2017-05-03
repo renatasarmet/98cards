@@ -13,7 +13,6 @@ public:
     bool Cheia() const;
     void Empilha(int, bool &, int &);
     void Desempilha(int &, bool &, int &);
-    void Teste(int &);
 
     //METODOS GET E SET
     void aumenta_topo();

@@ -69,8 +69,3 @@ void PilhaBurra::set_elemento_topo(int X){
 int PilhaBurra::get_elemento_topo() const{
 	return this->Elementos[this->topo];
 }
-
-
-void PilhaBurra::Teste(int &t){
-	t = get_topo();
-}
