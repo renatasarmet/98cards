@@ -22,6 +22,7 @@ public:
     int get_primeiro() const;
     void proximo_ultimo();
     int get_ultimo() const;
+    void set_primeiro(int);
 
     int get_NroElementos() const;
     void diminui_NroElementos();
@@ -30,6 +31,8 @@ public:
     void set_elemento_ultimo(int);
     int get_elemento_ultimo() const;
     int get_elemento_primeiro() const;
+    //so para teste
+    int get_elemento_X(int X) const;
 
 
 private:

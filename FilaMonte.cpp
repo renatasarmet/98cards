@@ -1,5 +1,9 @@
 #include "FilaMonte.h"
+#include <time.h>
+#include <ctime>
+#include <stdlib.h>
 #include <iostream>
+#include <cstdlib>
 using namespace std;
 
 FilaMonte::FilaMonte(){
@@ -20,17 +24,27 @@ void FilaMonte::InicializaElementos(){
 	for(int i=0;i<QUANT_CARTAS;i++)
 		Insere(i, DeuCerto);
 	//Chamando funcao para embaralhar vetor
-	//EmbaralhaElementos();
+	EmbaralhaElementos();
 }
 
 void FilaMonte::EmbaralhaElementos(){
+	int r, s, t;
+	//cout << "Nro elementos: " << NroElementos << endl;
 	for(int i=0; i<NroElementos;i++){
-		int r = rand() % NroElementos; // ARRUMAR ESSE ALEATORIO QUE ESTA SE REPETINDO
+		//srand(time(NULL));
+		r = rand() % NroElementos;
+//		s = rand() % NroElementos;
+//		t = rand() % NroElementos;
+		//int r = rand() % NroElementos; // ARRUMAR ESSE ALEATORIO QUE ESTA SE REPETINDO
 		//cout << "R: " << r << endl;
+//		cout << "--------S: " << s << endl;
+//		cout << "----------------T: " << t << endl;
+
 		int temp = Elementos[i];
 		Elementos[i] = Elementos[r];
 		Elementos[r] = temp;
 	}
+
 }
 
 bool FilaMonte::Vazia() const{
@@ -110,4 +124,12 @@ int FilaMonte::get_elemento_ultimo() const{
 
 int FilaMonte::get_NroElementos() const{
 	return this->NroElementos;
+}
+
+void FilaMonte::set_primeiro(int X){
+	this->Primeiro = X;
+}
+
+int FilaMonte::get_elemento_X(int X) const{
+	return this->Elementos[X];
 }

@@ -30,12 +30,10 @@ void Imprime(PilhaBurra &p, int &totalRestante){
 }
 
 void ImprimeFila(FilaMonte &f){ // VERIFICAR O QUE HA DE ERRADO COM O IMPRIME FILA - OBS : ELE ALTERA VALORES NA FILA
-	//cout << "Restam: " << f.get_NroElementos() << endl;
-	//cout << "Primeiro : " << f.get_primeiro() <<endl;
-	//cout << "Ultimo: " << f.get_ultimo() << endl;
-	int x;
+	int x, p;
 	FilaMonte FAux;
 	bool ok;
+	//p = f.get_primeiro();
 	while(f.Vazia()==false){
 		f.Retira(x,ok);
 		if(ok){
@@ -47,16 +45,24 @@ void ImprimeFila(FilaMonte &f){ // VERIFICAR O QUE HA DE ERRADO COM O IMPRIME FI
 	while(FAux.Vazia()==false){
 		FAux.Retira(x, ok);
 		if(ok){
-			//cout<< x << " ";
+			cout<< x << " ";
 			f.Insere(x, ok);
 			//cout << f.get_elemento_ultimo()<<endl;
 		}
 	}
-	//cout << " <--ultimo" << endl;
+	cout << " <--ultimo" << endl;
+	//f.set_primeiro(p); //TALVEZ TENHA QUE FAZER ISSO
 	cout << "Restam: " << f.get_NroElementos() << endl;
+	cout << "Primeiro : " << f.get_primeiro() <<endl;
+	cout << "Ultimo: " << f.get_ultimo() << endl;
+}
 
-	//cout << "Primeiro : " << f.get_primeiro() <<endl;
-	//cout << "Ultimo: " << f.get_ultimo() << endl;
+void ImprimeFilaAbrindoTV(FilaMonte &f){
+	cout << "Primeiro--> ";
+	for(int i=f.get_primeiro();i<(f.get_ultimo()+1);i++){
+		cout << f.get_elemento_X(i) << " ";
+	}
+	cout << " <--Ultimo"<<endl;
 }
 
 int main(){
@@ -94,24 +100,54 @@ int main(){
 //		Imprime(p, totalRestante);
 //	}
 
+
 	FilaMonte f;
-	int x;
+	int x, a;
 	bool ok;
 //	cout << "Restam :"<< f.get_NroElementos()<<endl;
 //	cout << "Primeiro : " << f.get_primeiro() <<endl;
 //	cout << "Ultimo: " << f.get_ultimo() << endl;
-	ImprimeFila(f);
+	//ImprimeFila(f);
 
-//	f.Retira(x, ok);
-//	if (ok)
-//		cout << "Retirou o elemento: " << x << endl;
-//	else
-//		cout << "Nao foi possivel retirar elemento" << endl;
-//	ImprimeFila(f);
+	ImprimeFilaAbrindoTV(f);
+	f.Retira(x, ok);
+	if (ok)
+		cout << "Retirou o elemento: " << x << endl;
+	else
+		cout << "Nao foi possivel retirar elemento" << endl;
+	//ImprimeFila(f);
 //	cout << "Restam :"<< f.get_NroElementos()<<endl;
 //	cout << "Primeiro : " << f.get_primeiro() <<endl;
 //	cout << "Ultimo: " << f.get_ultimo() << endl;
 
+
+	ImprimeFilaAbrindoTV(f);
+
+	f.Retira(x, ok);
+	if (ok)
+		cout << "Retirou o elemento: " << x << endl;
+	else
+		cout << "Nao foi possivel retirar elemento" << endl;
+	//ImprimeFila(f);
+//	cout << "Restam :"<< f.get_NroElementos()<<endl;
+//	cout << "Primeiro : " << f.get_primeiro() <<endl;
+//	cout << "Ultimo: " << f.get_ultimo() << endl;
+
+	//IMPRIMINDO A FILA ABRINDO A TV
+	ImprimeFilaAbrindoTV(f);
+
+	a = 10;
+	f.Insere(a, ok);
+	if (ok)
+		cout << "Inseriu o elemento: " << a << endl;
+	else
+		cout << "Nao foi possivel inserir elemento" << endl;
+//
+//	cout << "Restam :"<< f.get_NroElementos()<<endl;
+//	cout << "Primeiro : " << f.get_primeiro() <<endl;
+//	cout << "Ultimo: " << f.get_ultimo() << endl;
+
+	ImprimeFilaAbrindoTV(f);
 
 	return 0;
 }
