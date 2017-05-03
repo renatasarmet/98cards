@@ -15,6 +15,7 @@ public:
     void Retira(int &X, bool &DeuCerto);
     void InicializaElementos();
     void EmbaralhaElementos();
+    void ImprimeFilaAbrindoTV() const;
 
 
     //METODOS GET E SET

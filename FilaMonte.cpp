@@ -19,33 +19,27 @@ FilaMonte::~FilaMonte(){
 
 
 void FilaMonte::InicializaElementos(){
-	bool DeuCerto;
-	//Inicializando vetor na ordem
-	for(int i=0;i<QUANT_CARTAS;i++)
-		Insere(i, DeuCerto);
-	//Chamando funcao para embaralhar vetor
-	EmbaralhaElementos();
+    bool DeuCerto;
+    //Inicializando vetor na ordem
+    for(int i=1;i<(QUANT_CARTAS+1);i++)
+   	 Insere(i, DeuCerto);
+    //Chamando funcao para embaralhar vetor
+   	 srand(time(NULL));
+    EmbaralhaElementos();
 }
 
 void FilaMonte::EmbaralhaElementos(){
-	int r, s, t;
-	//cout << "Nro elementos: " << NroElementos << endl;
-	for(int i=0; i<NroElementos;i++){
-		//srand(time(NULL));
-		r = rand() % NroElementos;
-//		s = rand() % NroElementos;
-//		t = rand() % NroElementos;
-		//int r = rand() % NroElementos; // ARRUMAR ESSE ALEATORIO QUE ESTA SE REPETINDO
-		//cout << "R: " << r << endl;
-//		cout << "--------S: " << s << endl;
-//		cout << "----------------T: " << t << endl;
+    int r;
+    //cout << "Nro elementos: " << NroElementos << endl;
+    for(int i=0; i<NroElementos;i++){
+		 r = (rand() % NroElementos);
 
-		int temp = Elementos[i];
-		Elementos[i] = Elementos[r];
-		Elementos[r] = temp;
-	}
-
+		 int temp = Elementos[i];
+		 Elementos[i] = Elementos[r];
+		 Elementos[r] = temp;
+    }
 }
+
 
 bool FilaMonte::Vazia() const{
 	if(get_NroElementos()==0)
@@ -132,4 +126,12 @@ void FilaMonte::set_primeiro(int X){
 
 int FilaMonte::get_elemento_X(int X) const{
 	return this->Elementos[X];
+}
+
+void FilaMonte::ImprimeFilaAbrindoTV() const{
+//     cout << "Primeiro--> ";
+    for(int i=get_primeiro();i<(get_ultimo()+1);i++){
+   	 cout << get_elemento_X(i) <<" ";
+    }
+//     cout << " <--Ultimo"<<endl;
 }
