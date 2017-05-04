@@ -81,7 +81,7 @@ bool Mesa::insereMesa (int X, bool &DeuCerto){
 	else{
 		for(int i=0;i<TAMANHO_MESA;i++){
 			if(get_elemento_i(i, DeuCerto)==0){
-				cout << endl << "Carta " << X << " Inserida!" << endl;
+				//cout << endl << "-----------Carta " << X << " Inserida!" << endl;
 				aumenta_NroElementos();
 				set_elemento_i(i, X, DeuCerto);
 				return true;
@@ -95,7 +95,7 @@ bool Mesa::insereMesa (int X, bool &DeuCerto){
 int Mesa::removeMesa(int X, bool &DeuCerto){
 	for(int i=0;i<TAMANHO_MESA;i++){
 		if(get_elemento_i(i,DeuCerto) == X){
-			cout << endl << "Carta " << X << " Removida!" << endl;
+			//cout << endl << "-----------Carta " << X << " Removida!" << endl;
 			set_elemento_i(i, 0, DeuCerto);
 			diminui_NroElementos();
 			return X; // retorna o valor

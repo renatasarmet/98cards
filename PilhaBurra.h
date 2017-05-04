@@ -1,7 +1,7 @@
 #ifndef PILHABURRA_H
 #define PILHABURRA_H
 #include <iostream>
-#define QUANT_CARTAS 5
+#define QUANT_CARTAS 99
 
 
 class PilhaBurra {

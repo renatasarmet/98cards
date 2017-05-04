@@ -160,19 +160,46 @@ int main(){
 
 
 	//TESTE DA MESA
+	FilaMonte f;
 	Mesa m;
 	bool DeuCerto;
-	m.ImprimeMesaAbrindoTV();
-	m.insereMesa(9, DeuCerto);
-	m.ImprimeMesaAbrindoTV();
-	m.insereMesa(8, DeuCerto);
-	m.ImprimeMesaAbrindoTV();
-	m.insereMesa(7, DeuCerto);
-	m.ImprimeMesaAbrindoTV();
-	m.removeMesa(8, DeuCerto);
-	m.ImprimeMesaAbrindoTV();
-	m.removeMesa(10, DeuCerto);
-	m.ImprimeMesaAbrindoTV();
+	int op, n;
+
+	cout<<"Fila Monte: ";
+	f.ImprimeFilaAbrindoTV();
+	cout << endl;
+//	m.ImprimeMesaAbrindoTV();
+	m.PrimeiraDistribuicao(f,DeuCerto);
+	//m.ImprimeMesaAbrindoTV();
+	op = 2;
+	while(op!=0){
+		if(m.get_NroElementos() == 6)
+			m.NovaDistribuicao(f, DeuCerto);
+		cout << "Mesa: ";
+		m.ImprimeMesaAbrindoTV();
+
+		cout << "Digite 1 para remover e 0 para sair: "<<endl;
+		cin >> op;
+		switch(op){
+		case 1:
+			cout << "Digite o numero que deseja remover da mesa: " << endl;
+			cin >> n;
+			m.removeMesa(n, DeuCerto);
+			break;
+		}
+
+	}
+	cout << "Saindo...";
+//	m.insereMesa(9, DeuCerto);
+//	m.ImprimeMesaAbrindoTV();
+//	m.insereMesa(8, DeuCerto);
+//	m.ImprimeMesaAbrindoTV();
+//	m.insereMesa(7, DeuCerto);
+//	m.ImprimeMesaAbrindoTV();
+//	m.removeMesa(8, DeuCerto);
+//	m.ImprimeMesaAbrindoTV();
+//	m.removeMesa(10, DeuCerto);
+//	m.ImprimeMesaAbrindoTV();
 
 
 
