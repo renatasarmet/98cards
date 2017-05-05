@@ -8,7 +8,7 @@
 
 using namespace std;
 
-void Imprime(PilhaBurra &p, int &totalRestante){
+void ImprimePilha(PilhaBurra &p, int &totalRestante){
 	int x;
 	PilhaBurra PAux;
 	bool ok;
@@ -28,7 +28,7 @@ void Imprime(PilhaBurra &p, int &totalRestante){
 		}
 	}
 	cout << "<-- topo" << endl;
-	cout << "Restam: " << totalRestante << endl;
+	//cout << "Restam: " << totalRestante << endl;
 }
 
 //void ImprimeFila(FilaMonte &f){ // VERIFICAR O QUE HA DE ERRADO COM O IMPRIME FILA - OBS : ELE ALTERA VALORES NA FILA
@@ -104,7 +104,7 @@ int main(){
 //			op = 's';
 //			break;
 //		}
-//		Imprime(p, totalRestante);
+//		ImprimePilha(p, totalRestante);
 //	}
 
 
@@ -158,12 +158,13 @@ int main(){
 //
 //	ImprimeFilaAbrindoTV(f);
 
-
 	//TESTE DA MESA
 	FilaMonte f;
+	PilhaCrescente c1, c2;
+	PilhaDecrescente d1,d2;
 	Mesa m;
-	bool DeuCerto;
-	int op, n;
+	bool DeuCerto, ok;
+	int op, n, p, carta, totalRestante = QUANT_CARTAS;  //Resolver sobre totalRestante : ele nao sera necessario ( diminui_NroElementos)
 
 	cout<<"Fila Monte: ";
 	f.ImprimeFilaAbrindoTV();
@@ -177,14 +178,56 @@ int main(){
 			m.NovaDistribuicao(f, DeuCerto);
 		cout << "Mesa: ";
 		m.ImprimeMesaAbrindoTV();
+		cout << "Pilha Crescente 1: ";
+		ImprimePilha(c1, totalRestante);
+		cout << "Pilha Crescente 2: ";
+		ImprimePilha(c2, totalRestante);
+		cout << "Pilha Decrescente 1: ";
+		ImprimePilha(d1, totalRestante);
+		cout << "Pilha Decrescente 2: ";
+		ImprimePilha(d2, totalRestante);
 
-		cout << "Digite 1 para remover e 0 para sair: "<<endl;
+		cout << "Digite 1 para remover da mesa e 0 para sair: "<<endl;
 		cin >> op;
 		switch(op){
 		case 1:
 			cout << "Digite o numero que deseja remover da mesa: " << endl;
 			cin >> n;
-			m.removeMesa(n, DeuCerto);
+			carta = m.removeMesa(n, DeuCerto);
+			if(carta!=0){
+				cout << "Digite em qual pilha voce deseja colocar a carta "<< carta << ":" <<endl;
+				cout << "(1) para Crescente 1" << endl;
+				cout << "(2) para Crescente 2" << endl;
+				cout << "(3) para Decrescente 1" << endl;
+				cout << "(4) para Decrescente 2" << endl;
+				cin >> p;
+				totalRestante = f.get_NroElementos(); // LINHA DEVERA SER APAGADA
+				switch(p){
+				case 1:
+
+					c1.Empilha(carta, DeuCerto, totalRestante);
+					break;
+				case 2:
+					c2.Empilha(carta, DeuCerto, totalRestante);
+					break;
+				case 3:
+					d1.Empilha(carta, DeuCerto, totalRestante);
+
+					break;
+				case 4:
+					d2.Empilha(carta, DeuCerto, totalRestante);
+					break;
+				default:
+					DeuCerto = false;
+					cout << "Pilha invalida! Carta de volta para a mesa!" << endl;
+				}
+				if(DeuCerto)
+					f.diminui_NroElementos();
+				else
+					m.insereMesa(carta, DeuCerto);
+
+			}
+
 			break;
 		}
 

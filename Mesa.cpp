@@ -138,7 +138,7 @@ void Mesa::PrimeiraDistribuicao (FilaMonte &f, bool &DeuCerto){
 
 void Mesa::ImprimeMesaAbrindoTV() const{
 	bool DeuCerto;
-	cout << "Nro Elementos: " << get_NroElementos() << endl;
+	//cout << "Nro Elementos: " << get_NroElementos() << endl;
 	for(int i=0;i<(TAMANHO_MESA);i++){
 		cout << get_elemento_i(i, DeuCerto) << " ";
 	}
