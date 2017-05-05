@@ -8,186 +8,71 @@
 
 using namespace std;
 
-void ImprimePilha(PilhaBurra &p, int &totalRestante){
+void ImprimePilha(PilhaBurra &p){
 	int x;
 	PilhaBurra PAux;
 	bool ok;
 	while(p.Vazia()==false){
-		p.Desempilha(x, ok, totalRestante);
+		p.Desempilha(x, ok);
 		if(ok){
-			PAux.Empilha(x, ok, totalRestante);
+			PAux.Empilha(x, ok);
 		}
 	}
 
 	cout << "Imprimindo a pilha"<<endl;
 	while (PAux.Vazia()==false){
-		PAux.Desempilha(x, ok, totalRestante);
+		PAux.Desempilha(x, ok);
 		if(ok){
 			cout << x << " ";
-			p.Empilha(x, ok, totalRestante);
+			p.Empilha(x, ok);
 		}
 	}
 	cout << "<-- topo" << endl;
-	//cout << "Restam: " << totalRestante << endl;
 }
 
-//void ImprimeFila(FilaMonte &f){ // VERIFICAR O QUE HA DE ERRADO COM O IMPRIME FILA - OBS : ELE ALTERA VALORES NA FILA
-//	int x, p;
-//	FilaMonte FAux;
-//	bool ok;
-//	//p = f.get_primeiro();
-//	while(f.Vazia()==false){
-//		f.Retira(x,ok);
-//		if(ok){
-//			FAux.Insere(x, ok);
-//			//cout << FAux.get_elemento_ultimo()<<endl;
-//		}
-//	}
-//	cout << "Imprimindo a fila"<<endl;
-//	while(FAux.Vazia()==false){
-//		FAux.Retira(x, ok);
-//		if(ok){
-//			cout<< x << " ";
-//			f.Insere(x, ok);
-//			//cout << f.get_elemento_ultimo()<<endl;
-//		}
-//	}
-//	cout << " <--ultimo" << endl;
-//	//f.set_primeiro(p); //TALVEZ TENHA QUE FAZER ISSO
-//	cout << "Restam: " << f.get_NroElementos() << endl;
-//	cout << "Primeiro : " << f.get_primeiro() <<endl;
-//	cout << "Ultimo: " << f.get_ultimo() << endl;
-//}
-
-//void ImprimeFilaAbrindoTV(FilaMonte &f){
-//	cout << "Primeiro--> ";
-//	for(int i=f.get_primeiro();i<(f.get_ultimo()+1);i++){
-//		cout << f.get_elemento_X(i) << " ";
-//	}
-//	cout << " <--Ultimo"<<endl;
-//}
-
+void VerificaGameOver(Mesa &m, int c1topo, int c2topo, int d1topo, int d2topo){
+	int i;
+	for(i=0;i<8;i++){
+		//FAZER VERIFICACAO UM A UM E COMPARAR COM TOPO DE CADA E VER SE EXISTE JOGADA POSSIVEL
+	}
+}
 
 
 int main(){
-
-// TESTE DA PILHA
-//
-//	PilhaCrescente p; //Tambem funciona para Decrescente
-//	bool ok;
-//	char op = 't';
-//	int valor;
-//	int totalRestante = QUANT_CARTAS;
-//	cout << "Restam :" << totalRestante << endl;
-//	while(op != 's'){
-//		cout << "Digite (e) empilhar, (d) desempilhar, (s) sair [enter]" <<endl;
-//		cin >> op;
-//		switch(op){
-//		case 'e':
-//			cout << "Digite valor INTEIRO para empilhar" << endl;
-//			cin >>valor;
-//			p.Empilha(valor, ok, totalRestante);
-//			if(ok==true)
-//				cout << "> valor empilhado"<<endl;
-//			else
-//				cout << ">nao conseguiu empilhar" << endl;
-//			break;
-//		case 'd':
-//			p.Desempilha(valor,ok, totalRestante);
-//			if(ok==true)
-//				cout << "valor desempilhado = " << valor << endl;
-//			else
-//				cout << "nao conseguiu desempilhar" << endl;
-//			break;
-//		default:
-//			cout << "saindo... " << endl;
-//			op = 's';
-//			break;
-//		}
-//		ImprimePilha(p, totalRestante);
-//	}
-
-
-	// TESTE DA FILA
-//
-//	FilaMonte f;
-//	int x, a;
-//	bool ok;
-////	cout << "Restam :"<< f.get_NroElementos()<<endl;
-////	cout << "Primeiro : " << f.get_primeiro() <<endl;
-////	cout << "Ultimo: " << f.get_ultimo() << endl;
-//	//ImprimeFila(f);
-//
-//	ImprimeFilaAbrindoTV(f);
-//	f.Retira(x, ok);
-//	if (ok)
-//		cout << "Retirou o elemento: " << x << endl;
-//	else
-//		cout << "Nao foi possivel retirar elemento" << endl;
-//	//ImprimeFila(f);
-////	cout << "Restam :"<< f.get_NroElementos()<<endl;
-////	cout << "Primeiro : " << f.get_primeiro() <<endl;
-////	cout << "Ultimo: " << f.get_ultimo() << endl;
-//
-//
-//	ImprimeFilaAbrindoTV(f);
-//
-//	f.Retira(x, ok);
-//	if (ok)
-//		cout << "Retirou o elemento: " << x << endl;
-//	else
-//		cout << "Nao foi possivel retirar elemento" << endl;
-//	//ImprimeFila(f);
-////	cout << "Restam :"<< f.get_NroElementos()<<endl;
-////	cout << "Primeiro : " << f.get_primeiro() <<endl;
-////	cout << "Ultimo: " << f.get_ultimo() << endl;
-//
-//	//IMPRIMINDO A FILA ABRINDO A TV
-//	ImprimeFilaAbrindoTV(f);
-//
-//	a = 10;
-//	f.Insere(a, ok);
-//	if (ok)
-//		cout << "Inseriu o elemento: " << a << endl;
-//	else
-//		cout << "Nao foi possivel inserir elemento" << endl;
-////
-////	cout << "Restam :"<< f.get_NroElementos()<<endl;
-////	cout << "Primeiro : " << f.get_primeiro() <<endl;
-////	cout << "Ultimo: " << f.get_ultimo() << endl;
-//
-//	ImprimeFilaAbrindoTV(f);
-
-	//TESTE DA MESA
 	FilaMonte f;
 	PilhaCrescente c1, c2;
 	PilhaDecrescente d1,d2;
 	Mesa m;
-	bool DeuCerto, ok;
-	int op, n, p, carta, totalRestante = QUANT_CARTAS;  //Resolver sobre totalRestante : ele nao sera necessario ( diminui_NroElementos)
+	bool DeuCerto, podeDesfazer;
+	int op, n, p, carta;
 
 	cout<<"Fila Monte: ";
 	f.ImprimeFilaAbrindoTV();
 	cout << endl;
-//	m.ImprimeMesaAbrindoTV();
 	m.PrimeiraDistribuicao(f,DeuCerto);
-	//m.ImprimeMesaAbrindoTV();
-	op = 2;
-	while(op!=0){
-		if(m.get_NroElementos() == 6)
+	op = 100; //inicializando com um valor que nao existe
+	while(op!=0){ // IMPLEMENTAR GAME OVER
+		if(m.get_NroElementos() == 6){
 			m.NovaDistribuicao(f, DeuCerto);
-		cout << "Mesa: ";
-		m.ImprimeMesaAbrindoTV();
+			podeDesfazer = false;
+		}
+		else if(m.get_NroElementos()==8)
+			podeDesfazer = false;
 		cout << "Pilha Crescente 1: ";
-		ImprimePilha(c1, totalRestante);
+		ImprimePilha(c1);
 		cout << "Pilha Crescente 2: ";
-		ImprimePilha(c2, totalRestante);
+		ImprimePilha(c2);
 		cout << "Pilha Decrescente 1: ";
-		ImprimePilha(d1, totalRestante);
+		ImprimePilha(d1);
 		cout << "Pilha Decrescente 2: ";
-		ImprimePilha(d2, totalRestante);
+		ImprimePilha(d2);
+		cout << "Mesa: ";
+			m.ImprimeMesaAbrindoTV();
 
-		cout << "Digite 1 para remover da mesa e 0 para sair: "<<endl;
+		if(podeDesfazer)
+			cout << "Digite 1 para remover da mesa, 2 para desfazer ultima jogada e 0 para sair: "<<endl;
+		else
+			cout << "Digite 1 para remover da mesa e 0 para sair: "<<endl;
 		cin >> op;
 		switch(op){
 		case 1:
@@ -201,21 +86,20 @@ int main(){
 				cout << "(3) para Decrescente 1" << endl;
 				cout << "(4) para Decrescente 2" << endl;
 				cin >> p;
-				totalRestante = f.get_NroElementos(); // LINHA DEVERA SER APAGADA
 				switch(p){
 				case 1:
 
-					c1.Empilha(carta, DeuCerto, totalRestante);
+					c1.Empilha(carta, DeuCerto);
 					break;
 				case 2:
-					c2.Empilha(carta, DeuCerto, totalRestante);
+					c2.Empilha(carta, DeuCerto);
 					break;
 				case 3:
-					d1.Empilha(carta, DeuCerto, totalRestante);
+					d1.Empilha(carta, DeuCerto);
 
 					break;
 				case 4:
-					d2.Empilha(carta, DeuCerto, totalRestante);
+					d2.Empilha(carta, DeuCerto);
 					break;
 				default:
 					DeuCerto = false;
@@ -229,23 +113,39 @@ int main(){
 			}
 
 			break;
+		case 2:
+			if(podeDesfazer){
+				switch(p){
+					case 1:
+						c1.Desempilha(carta, DeuCerto);
+						break;
+					case 2:
+						c2.Desempilha(carta, DeuCerto);
+						break;
+					case 3:
+						d1.Desempilha(carta, DeuCerto);
+
+						break;
+					case 4:
+						d2.Desempilha(carta, DeuCerto);
+						break;
+					default:
+						DeuCerto = false;
+						cout << "Pilha invalida! Carta de volta para a mesa!" << endl;
+					}
+					if(DeuCerto)
+						f.aumenta_NroElementos();
+						m.insereMesa(carta, DeuCerto);
+			}
+			break;
 		}
-
+		podeDesfazer = true;
+		if(f.get_NroElementos()==0){
+			cout << "Parabens! Voce venceu!!" << endl;
+			op = 0;
+		}
 	}
-	cout << "Saindo...";
-//	m.insereMesa(9, DeuCerto);
-//	m.ImprimeMesaAbrindoTV();
-//	m.insereMesa(8, DeuCerto);
-//	m.ImprimeMesaAbrindoTV();
-//	m.insereMesa(7, DeuCerto);
-//	m.ImprimeMesaAbrindoTV();
-//	m.removeMesa(8, DeuCerto);
-//	m.ImprimeMesaAbrindoTV();
-//	m.removeMesa(10, DeuCerto);
-//	m.ImprimeMesaAbrindoTV();
-
-
-
+	cout << "Saindo..."<<endl;
 
 	return 0;
 }

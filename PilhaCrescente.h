@@ -8,7 +8,7 @@ class PilhaCrescente: public PilhaBurra{
 	public:
 		PilhaCrescente();
 		~PilhaCrescente();
-		void Empilha(int, bool &, int &);
+		void Empilha(int, bool &);
 };
 
 #endif //PILHACRESCENTE_H

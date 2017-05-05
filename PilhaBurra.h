@@ -11,8 +11,8 @@ public:
    //METODOS
     bool Vazia() const;
     bool Cheia() const;
-    void Empilha(int, bool &, int &);
-    void Desempilha(int &, bool &, int &);
+    void Empilha(int, bool &);
+    void Desempilha(int &, bool &);
 
     //METODOS GET E SET
     void aumenta_topo();

@@ -8,10 +8,10 @@ PilhaCrescente::PilhaCrescente():PilhaBurra(){
 PilhaCrescente::~PilhaCrescente(){
 }
 
-void PilhaCrescente::Empilha(int X, bool &DeuCerto, int &totalRestante){
+void PilhaCrescente::Empilha(int X, bool &DeuCerto){
 	bool DeuCertoTbm = false;
 	if((Vazia()) || (X > get_elemento_topo())||( X == get_elemento_topo()-10)){
-		PilhaBurra::Empilha(X,DeuCertoTbm,totalRestante);
+		PilhaBurra::Empilha(X,DeuCertoTbm);
 
 	}
 	if(DeuCertoTbm)

@@ -24,25 +24,23 @@ bool PilhaBurra::Cheia() const{
 		return false;
 }
 
-void PilhaBurra::Empilha(int X, bool &DeuCerto, int &totalRestante){
+void PilhaBurra::Empilha(int X, bool &DeuCerto){
 	if(Cheia())
 		DeuCerto = false;
 	else{
 		DeuCerto = true;
 		aumenta_topo();
 		set_elemento_topo(X);
-		totalRestante -= 1;
 	}
 }
 
-void PilhaBurra::Desempilha(int &X, bool &DeuCerto, int &totalRestante){
-	if(Vazia()) // || tag == 1;
+void PilhaBurra::Desempilha(int &X, bool &DeuCerto){
+	if(Vazia())
 		DeuCerto = false;
 	else{
 		DeuCerto = true;
 		X = get_elemento_topo();
 		diminui_topo();
-		totalRestante += 1;
 	}
 }
 
