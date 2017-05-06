@@ -21,7 +21,7 @@ FilaMonte::~FilaMonte(){
 void FilaMonte::InicializaElementos(){
     bool DeuCerto;
     //Inicializando vetor na ordem
-    for(int i=1;i<(QUANT_CARTAS+1);i++)
+    for(int i=1;i<=(QUANT_CARTAS);i++)
    	 Insere(i, DeuCerto);
     //Chamando funcao para embaralhar vetor
    	 srand(time(NULL));

@@ -30,13 +30,56 @@ void ImprimePilha(PilhaBurra &p){
 	cout << "<-- topo" << endl;
 }
 
-void VerificaGameOver(Mesa &m, int c1topo, int c2topo, int d1topo, int d2topo){
-	int i;
-	for(i=0;i<8;i++){
-		//FAZER VERIFICACAO UM A UM E COMPARAR COM TOPO DE CADA E VER SE EXISTE JOGADA POSSIVEL
+bool VerificaGameOver(Mesa m, PilhaCrescente &c1, PilhaCrescente &c2, PilhaDecrescente &d1, PilhaDecrescente &d2){
+	int i, carta;
+	bool DeuCerto, ok;
+
+	for(i=0;i<TAMANHO_MESA;i++){
+		carta = m.get_elemento_i(i, DeuCerto);
+		if(carta!=0){
+			ok = false;
+			c1.Empilha(carta,DeuCerto);
+			if(DeuCerto){
+				c1.Desempilha(carta, DeuCerto);
+				ok = true;
+			}
+			else{
+				c2.Empilha(carta, DeuCerto);
+				if(DeuCerto){
+					c2.Desempilha(carta, DeuCerto);
+					ok = true;
+				}
+				else{
+					d1.Empilha(carta, DeuCerto);
+					if(DeuCerto){
+						d1.Desempilha(carta, DeuCerto);
+						ok = true;
+					}
+					else{
+						d2.Empilha(carta, DeuCerto);
+						if(DeuCerto){
+							d2.Desempilha(carta, DeuCerto);
+							ok = true;
+						}
+					}
+				}
+			}
+			if(ok)
+				return false;
+		}
 	}
+	return true;
 }
 
+
+bool VerificaGanhou(Mesa m, FilaMonte f){
+	int i;
+	i = f.get_NroElementos() + m.get_NroElementos();
+	if(i==0){
+		return true;
+	}
+	return false;
+}
 
 int main(){
 	FilaMonte f;
@@ -51,13 +94,15 @@ int main(){
 	cout << endl;
 	m.PrimeiraDistribuicao(f,DeuCerto);
 	op = 100; //inicializando com um valor que nao existe
-	while(op!=0){ // IMPLEMENTAR GAME OVER
+	while(op!=0){
 		if(m.get_NroElementos() == 6){
 			m.NovaDistribuicao(f, DeuCerto);
 			podeDesfazer = false;
 		}
 		else if(m.get_NroElementos()==8)
 			podeDesfazer = false;
+
+
 		cout << "Pilha Crescente 1: ";
 		ImprimePilha(c1);
 		cout << "Pilha Crescente 2: ";
@@ -67,7 +112,19 @@ int main(){
 		cout << "Pilha Decrescente 2: ";
 		ImprimePilha(d2);
 		cout << "Mesa: ";
-			m.ImprimeMesaAbrindoTV();
+		m.ImprimeMesaAbrindoTV();
+
+
+		if(VerificaGanhou(m,f)){
+			cout << "Parabens! Voce venceu!!" << endl;
+			op = 0;
+			break;
+		}
+		else if(VerificaGameOver(m,c1,c2,d1,d2)){
+			cout << "GAME OVER! Tente novamente!" << endl;
+			op = 0;
+			break;
+		}
 
 		if(podeDesfazer)
 			cout << "Digite 1 para remover da mesa, 2 para desfazer ultima jogada e 0 para sair: "<<endl;
@@ -105,9 +162,7 @@ int main(){
 					DeuCerto = false;
 					cout << "Pilha invalida! Carta de volta para a mesa!" << endl;
 				}
-				if(DeuCerto)
-					f.diminui_NroElementos();
-				else
+				if(!DeuCerto)
 					m.insereMesa(carta, DeuCerto);
 
 			}
@@ -140,10 +195,7 @@ int main(){
 			break;
 		}
 		podeDesfazer = true;
-		if(f.get_NroElementos()==0){
-			cout << "Parabens! Voce venceu!!" << endl;
-			op = 0;
-		}
+
 	}
 	cout << "Saindo..."<<endl;
 
