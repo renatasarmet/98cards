@@ -13,7 +13,7 @@ public:
 
 private:
 	static bool IsExiting();
-	static void loop_jogo();
+	static void loop_jogo(mesa&);
 
 	static void mostrar_tela_inicial();
 	static void mostrar_menu();

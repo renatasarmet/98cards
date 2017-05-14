@@ -1,5 +1,4 @@
 #include "gerenciador_cartas.h"
-#include "headers.h"
 
 gerenciador_cartas::gerenciador_cartas()
 {
@@ -14,6 +13,7 @@ void gerenciador_cartas::adicionar(std::string nome, cartas* carta_jogo)
 {
 	_carta_jogo.insert(std::pair<std::string, cartas*>(nome, carta_jogo));
 }
+
 
 void gerenciador_cartas::remover(std::string nome)
 {

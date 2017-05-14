@@ -1,16 +1,20 @@
-#include "headers.h"
+#include "mesa.h"
 
-mesa::mesa() 
+mesa::mesa()
 {
 	LimpaMesa();
 	carregou = false;
+
+	//for (int j = 0; j < 3; j++) {
+	//	teste[j] = new cartas();
+	//}
 }
 
 mesa::~mesa() 
 {
 }
 
-void mesa::LimpaMesa() 
+void mesa::LimpaMesa()
 {
 	bool DeuCerto;
 	set_NroElementos(0);
@@ -77,24 +81,31 @@ void mesa::set_elemento_i(int i, int X, bool &DeuCerto)
 
 		std::string aux = std::to_string(X);
 		aux = aux + ".jpg";
+		//ELE TA DESENHANDO SÓ UMA CARTA, EU PRECISO QUE DESENHE TODAS. SÓ QUE SO TEM 1 SPRITE NESSA POHA E EU NAO SEI COMO COLOCA MAIS
+		//TALVEZ SE O VETOR FOR DE CARTAS DÊ PARA CRIAR SPRITES DIFERENTES OU ALGO DO TIPO PRA APARECER TODAS AS CARTAS NA TELA
 
 		if (X != 0)
 		{
-			carregar(aux);
+			teste[i] = new cartas();
+			teste[i]->carregar(aux);
+	
+			//carregar(aux);
 			if (i % 2 == 0)
-				set_posicao(50, 800);
+				teste[i]->set_posicao(190 + (i * 100), 1000);
 			else
-				set_posicao(50, 900);
-		}
-		else
-			carregar("");
+				teste[i]->set_posicao(90 + (i * 100), 1250);
+			cout << i << endl;
 
+			//desenhar(renderWindow);
+		}
+		//else
+		//	teste[i]->carregar(NULL);
 	}
 	else
 		DeuCerto = false;
 }
 
-bool mesa::insereMesa(int X, bool &DeuCerto) 
+bool mesa::insereMesa(int X, bool &DeuCerto)
 {
 	if (Cheia()) 
 	{
@@ -117,20 +128,23 @@ bool mesa::insereMesa(int X, bool &DeuCerto)
 	return false;
 }
 
-int mesa::removeMesa(int X, bool &DeuCerto) 
+void mesa::removeMesa(sf::RenderWindow& window, int i)
 {
-	for (int i = 0; i<TAMANHO_MESA; i++) 
-	{
-		if (get_elemento_i(i, DeuCerto) == X) 
-		{
-			//cout << endl << "-----------Carta " << X << " Removida!" << endl;
+	sf::Vector2i mousepos = sf::Mouse::getPosition(window);
+	bool DeuCerto;
+
+	//for (int i = 0; i<TAMANHO_MESA; i++) 
+	//{
+		//if (teste[i]->selecionado(window)) 
+		//{
 			set_elemento_i(i, 0, DeuCerto);
+			teste[i]->set_posicao(mousepos.x, mousepos.y);
 			diminui_NroElementos();
-			return X; // retorna o valor
-		}
-	}
-	cout << endl << "Nao foi possivel remover! Carta " << X << " nao encontrada!" << endl;
-	return 0; //caso nao tenha o valor
+			//return X; // retorna o valor
+		//}
+	//}
+	//cout << endl << "Nao foi possivel remover! Carta " << X << " nao encontrada!" << endl;
+	//return 0; //caso nao tenha o valor
 }
 
 void mesa::distribuicao(fila_monte &f, int quantidade)
@@ -178,29 +192,51 @@ void mesa::ImprimeMesaAbrindoTV() const
 	cout << endl;
 }
 
-void mesa::carregar(std::string nomearquivo)
-{
-	if (_imagem.loadFromFile(nomearquivo) == false)
-	{
-		nome_arquivo = "";
-		carregou = false;
-	}
-	else
-	{
-		nome_arquivo = nomearquivo;
-		_sprite.setTexture(_imagem);
-		carregou = true;
-	}
-}
+//void mesa::carregar(std::string nomearquivo)
+//{
+//	if (_imagem.loadFromFile(nomearquivo) == false)
+//	{
+//		nome_arquivo = "";
+//		carregou = false;
+//	}
+//	else
+//	{
+//		nome_arquivo = nomearquivo;
+//		_sprite.setTexture(_imagem);
+//		carregou = true;
+//	}
+//}
 
-void mesa::desenhar(sf::RenderWindow& renderWindow)
-{
-	if (carregou)
-		renderWindow.draw(_sprite);
-}
+//void mesa::desenhar(sf::RenderWindow& renderWindow)
+//{
+//	renderWindow.draw(_sprite);
+//}
 
 void mesa::set_posicao(float x, float y)
 {
 	if (carregou)
 		_sprite.setPosition(x, y);
+}
+
+float mesa::get_altura() const
+{
+	return _sprite.getLocalBounds().height;
+}
+
+float mesa::get_largura() const
+{
+	return _sprite.getLocalBounds().width;
+}
+
+void mesa::adicionar_mesa(std::string nome, cartas* carta_mesa)
+{
+	_carta_mesa.insert(std::pair<std::string, cartas*>(nome, carta_mesa));
+}
+
+sf::Rect<float> mesa::get_bounding_rect()
+{
+	sf::Vector2f size = _sprite.getScale();
+	sf::Vector2f position = _sprite.getPosition();
+
+	return sf::Rect<float>(position.x - size.x / 2, position.y - size.y / 2, position.x + size.x / 2, position.y + size.y / 2);
 }
