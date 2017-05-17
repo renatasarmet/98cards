@@ -1,20 +1,28 @@
-#include "headers.h"
+#include <iostream>
+#include "PilhaBurra.h"
+#include "PilhaCrescente.h"
+#include "PilhaDecrescente.h"
+#include "FilaMonte.h"
+#include "Mesa.h"
 
-void ImprimePilha(pilha_burra &p) {
+
+using namespace std;
+
+void ImprimePilha(PilhaBurra &p){
 	int x;
-	pilha_burra PAux;
+	PilhaBurra PAux;
 	bool ok;
-	while (p.Vazia() == false) {
+	while(p.Vazia()==false){
 		p.Desempilha(x, ok);
-		if (ok) {
+		if(ok){
 			PAux.Empilha(x, ok);
 		}
 	}
 
-	cout << "Imprimindo a pilha" << endl;
-	while (PAux.Vazia() == false) {
+	cout << "Imprimindo a pilha"<<endl;
+	while (PAux.Vazia()==false){
 		PAux.Desempilha(x, ok);
-		if (ok) {
+		if(ok){
 			cout << x << " ";
 			p.Empilha(x, ok);
 		}
@@ -22,41 +30,41 @@ void ImprimePilha(pilha_burra &p) {
 	cout << "<-- topo" << endl;
 }
 
-bool VerificaGameOver(mesa m, pilha_crescente &c1, pilha_crescente &c2, pilha_decrescente &d1, pilha_decrescente &d2) {
+bool VerificaGameOver(Mesa m, PilhaCrescente &c1, PilhaCrescente &c2, PilhaDecrescente &d1, PilhaDecrescente &d2){
 	int i, carta;
 	bool DeuCerto, ok;
 
-	for (i = 0; i<TAMANHO_MESA; i++) {
+	for(i=0;i<TAMANHO_MESA;i++){
 		carta = m.get_elemento_i(i, DeuCerto);
-		if (carta != 0) {
+		if(carta!=0){
 			ok = false;
-			c1.Empilha(carta, DeuCerto);
-			if (DeuCerto) {
+			c1.Empilha(carta,DeuCerto);
+			if(DeuCerto){
 				c1.Desempilha(carta, DeuCerto);
 				ok = true;
 			}
-			else {
+			else{
 				c2.Empilha(carta, DeuCerto);
-				if (DeuCerto) {
+				if(DeuCerto){
 					c2.Desempilha(carta, DeuCerto);
 					ok = true;
 				}
-				else {
+				else{
 					d1.Empilha(carta, DeuCerto);
-					if (DeuCerto) {
+					if(DeuCerto){
 						d1.Desempilha(carta, DeuCerto);
 						ok = true;
 					}
-					else {
+					else{
 						d2.Empilha(carta, DeuCerto);
-						if (DeuCerto) {
+						if(DeuCerto){
 							d2.Desempilha(carta, DeuCerto);
 							ok = true;
 						}
 					}
 				}
 			}
-			if (ok)
+			if(ok)
 				return false;
 		}
 	}
@@ -64,34 +72,34 @@ bool VerificaGameOver(mesa m, pilha_crescente &c1, pilha_crescente &c2, pilha_de
 }
 
 
-bool VerificaGanhou(mesa m, fila_monte f) {
+bool VerificaGanhou(Mesa m, FilaMonte f){
 	int i;
 	i = f.get_NroElementos() + m.get_NroElementos();
-	if (i == 0) {
+	if(i==0){
 		return true;
 	}
 	return false;
 }
 
-int main() {
-	fila_monte f;
-	pilha_crescente c1, c2;
-	pilha_decrescente d1, d2;
-	mesa m;
+int main(){
+	FilaMonte f;
+	PilhaCrescente c1, c2;
+	PilhaDecrescente d1,d2;
+	Mesa m;
 	bool DeuCerto, podeDesfazer;
 	int op, n, p, carta;
 
-	cout << "Fila Monte: ";
+	cout<<"Fila Monte: ";
 	f.ImprimeFilaAbrindoTV();
 	cout << endl;
-	m.PrimeiraDistribuicao(f, DeuCerto);
+	m.PrimeiraDistribuicao(f,DeuCerto);
 	op = 100; //inicializando com um valor que nao existe
-	while (op != 0) {
-		if (m.get_NroElementos() == 6) {
+	while(op!=0){
+		if(m.get_NroElementos() == 6){
 			m.NovaDistribuicao(f, DeuCerto);
 			podeDesfazer = false;
 		}
-		else if (m.get_NroElementos() == 8)
+		else if(m.get_NroElementos()==8)
 			podeDesfazer = false;
 
 
@@ -107,35 +115,35 @@ int main() {
 		m.ImprimeMesaAbrindoTV();
 
 
-		if (VerificaGanhou(m, f)) {
+		if(VerificaGanhou(m,f)){
 			cout << "Parabens! Voce venceu!!" << endl;
 			op = 0;
 			break;
 		}
-		else if (VerificaGameOver(m, c1, c2, d1, d2)) {
+		else if(VerificaGameOver(m,c1,c2,d1,d2)){
 			cout << "GAME OVER! Tente novamente!" << endl;
 			op = 0;
 			break;
 		}
 
-		if (podeDesfazer)
-			cout << "Digite 1 para remover da mesa, 2 para desfazer ultima jogada e 0 para sair: " << endl;
+		if(podeDesfazer)
+			cout << "Digite 1 para remover da mesa, 2 para desfazer ultima jogada e 0 para sair: "<<endl;
 		else
-			cout << "Digite 1 para remover da mesa e 0 para sair: " << endl;
+			cout << "Digite 1 para remover da mesa e 0 para sair: "<<endl;
 		cin >> op;
-		switch (op) {
+		switch(op){
 		case 1:
 			cout << "Digite o numero que deseja remover da mesa: " << endl;
 			cin >> n;
 			carta = m.removeMesa(n, DeuCerto);
-			if (carta != 0) {
-				cout << "Digite em qual pilha voce deseja colocar a carta " << carta << ":" << endl;
+			if(carta!=0){
+				cout << "Digite em qual pilha voce deseja colocar a carta "<< carta << ":" <<endl;
 				cout << "(1) para Crescente 1" << endl;
 				cout << "(2) para Crescente 2" << endl;
 				cout << "(3) para Decrescente 1" << endl;
 				cout << "(4) para Decrescente 2" << endl;
 				cin >> p;
-				switch (p) {
+				switch(p){
 				case 1:
 
 					c1.Empilha(carta, DeuCerto);
@@ -154,43 +162,42 @@ int main() {
 					DeuCerto = false;
 					cout << "Pilha invalida! Carta de volta para a mesa!" << endl;
 				}
-				if (!DeuCerto)
+				if(!DeuCerto)
 					m.insereMesa(carta, DeuCerto);
 
 			}
 
 			break;
 		case 2:
-			if (podeDesfazer) {
-				switch (p) {
-				case 1:
-					c1.Desempilha(carta, DeuCerto);
-					break;
-				case 2:
-					c2.Desempilha(carta, DeuCerto);
-					break;
-				case 3:
-					d1.Desempilha(carta, DeuCerto);
+			if(podeDesfazer){
+				switch(p){
+					case 1:
+						c1.Desempilha(carta, DeuCerto);
+						break;
+					case 2:
+						c2.Desempilha(carta, DeuCerto);
+						break;
+					case 3:
+						d1.Desempilha(carta, DeuCerto);
 
-					break;
-				case 4:
-					d2.Desempilha(carta, DeuCerto);
-					break;
-				default:
-					DeuCerto = false;
-					cout << "Pilha invalida! Carta de volta para a mesa!" << endl;
-				}
-				if (DeuCerto)
-					f.aumenta_NroElementos();
-				m.insereMesa(carta, DeuCerto);
+						break;
+					case 4:
+						d2.Desempilha(carta, DeuCerto);
+						break;
+					default:
+						DeuCerto = false;
+						cout << "Pilha invalida! Carta de volta para a mesa!" << endl;
+					}
+					if(DeuCerto)
+						f.aumenta_NroElementos();
+						m.insereMesa(carta, DeuCerto);
 			}
 			break;
 		}
 		podeDesfazer = true;
 
 	}
-	cout << "Saindo..." << endl;
+	cout << "Saindo..."<<endl;
 
-	system("PAUSE");
 	return 0;
 }
