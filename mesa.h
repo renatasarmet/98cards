@@ -18,7 +18,7 @@ public:
 	bool Vazia() const;
 	bool Cheia() const;
 	bool insereMesa(int X, bool &DeuCerto);
-	void removeMesa(sf::RenderWindow& window, int i);
+	int removeMesa(int X, bool &DeuCerto);
 	void LimpaMesa();
 	void distribuicao(fila_monte &f, int quantidade);
 	void NovaDistribuicao(fila_monte &f, bool &DeuCerto);
@@ -34,36 +34,18 @@ public:
 	void set_elemento_i(int i, int X, bool &DeuCerto);
 
 	//TESTE
-	/*virtual void carregar(std::string nome_arquivo);
-	virtual void desenhar(sf::RenderWindow& window);*/
+	virtual void carregar(std::string nome_arquivo);
+	virtual void desenhar(sf::RenderWindow& window);
 
 	virtual void set_posicao(float x, float y);
 
-	virtual float get_altura() const;
-	virtual float get_largura() const;
-
-	void adicionar_mesa(std::string nome, cartas* carta_mesa);
-
-	virtual sf::Rect<float> get_bounding_rect();
-
-	cartas *teste[TAMANHO_MESA];
-	
 private:
 	int Elementos[TAMANHO_MESA];
 	int NroElementos;
 	//TESTE
-	std::map<std::string, cartas*> _carta_mesa;
 	sf::Sprite _sprite;
 	sf::Texture _imagem;
 	std::string nome_arquivo;
 	bool carregou;
-	
-	struct carta_mesa_alocador
-	{
-		void operator()(const std::pair < std::string, cartas*> & p) const
-		{
-			delete p.second;
-		}
-	};
 };
 #endif // MESA_H
